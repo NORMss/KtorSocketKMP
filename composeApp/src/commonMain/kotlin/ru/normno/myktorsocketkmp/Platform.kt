@@ -1,0 +1,7 @@
+package ru.normno.myktorsocketkmp
+
+interface Platform {
+    val name: String
+}
+
+expect fun getPlatform(): Platform
