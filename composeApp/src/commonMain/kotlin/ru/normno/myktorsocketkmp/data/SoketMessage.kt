@@ -10,13 +10,7 @@ data class ConnectMessage(
 )
 
 @Serializable
-data class LoginParams(val user: User, val password: Password)
-
-@Serializable
-data class User(val username: String)
-
-@Serializable
-data class Password(val digest: String, val algorithm: String = "sha-256")
+data class LoginParams(val user: String, val password: String)
 
 @Serializable
 data class LoginMessage(
