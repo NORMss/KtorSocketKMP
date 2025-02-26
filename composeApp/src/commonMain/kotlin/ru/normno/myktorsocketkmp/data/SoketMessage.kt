@@ -10,29 +10,26 @@ data class ConnectMessage(
 )
 
 @Serializable
-data class SubscribeMessage(
-    val msg: String = "sub",
-    val id: String = "2",
-    val name: String = "stream-room-messages",
-    val params: Params,
-)
-
-@Serializable
-data class Params(
-    val channelId: String,
-    val useCollection: Boolean = false,
-)
-
-@Serializable
 data class LoginParams(val resume: String)
 
 @Serializable
-data class Password(val digest: String, val algorithm: String = "sha-256")
+data class MethodMessage(
+    val msg: String = "method",
+    val method: String,
+    val id: String = "1",
+    val params: List<LoginParams>
+)
 
 @Serializable
-data class LoginMessage(
-    val msg: String = "method",
-    val method: String = "login",
-    val id: String = "42",
-    val params: List<LoginParams>,
+data class SubscriptionMessage(
+    val msg: String = "sub",
+    val id: String = "2",
+    val name: String,
+    val params: List<String>,
 )
+
+@Serializable
+data class PingMessage(val msg: String = "ping")
+
+@Serializable
+data class PongMessage(val msg: String = "pong")

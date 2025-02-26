@@ -3,7 +3,6 @@ package ru.normno.myktorsocketkmp
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import io.ktor.websocket.readText
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import ru.normno.myktorsocketkmp.data.remote.RealtimeMessagingClient
@@ -16,12 +15,17 @@ fun App() {
     MaterialTheme {
         val httpClientEngine = getHttpEngine()
         val httpClient = clientBuilder(httpClientEngine)
-        val realtimeMessagingClient = RealtimeMessagingClient(httpClient)
+        val realtimeMessagingClient = RealtimeMessagingClient(
+            httpClient = httpClient,
+            authToken = "",
+            roomId = "",
+        )
 
         runBlocking {
-            realtimeMessagingClient.connect().collect { frame ->
-                println("Новое сообщение: ${frame.readText()}")
-            }
+            realtimeMessagingClient.connect()
+                .collect { frame ->
+                    println("Collected frame: ${frame.readText()}")
+                }
         }
     }
 }
